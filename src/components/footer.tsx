@@ -53,7 +53,7 @@ export function Footer() {
 
       {/* Copyright */}
       <p className="text-xs uppercase tracking-[0.2em] text-neutral-500 text-center opacity-80 hover:opacity-100 transition-opacity mt-4">
-        © 2024 CULINARY OBSIDIAN. THE ART OF THE CUT.
+        © 2026 AL CARBÓN. TODOS LOS DERECHOS RESERVADOS.
       </p>
 
       {/* Hecho por Cenit Digital */}
