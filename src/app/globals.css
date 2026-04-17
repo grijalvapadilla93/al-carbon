@@ -1,0 +1,313 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Al Carbón custom tokens */
+  --color-primary-accent: #8b0000;
+  --color-primary-hover: #920703;
+  --color-primary-light: #ffb4a8;
+  --color-primary-container: #8b0000;
+  --color-on-primary: #690000;
+  --color-on-surface: #e2e2e2;
+  --color-on-surface-variant: #e3beb8;
+  --color-secondary-dim: #c8c6c5;
+  --color-secondary-fixed-dim: #c8c6c5;
+  --color-tertiary: #e6bead;
+  --color-tertiary-fixed-dim: #e6bead;
+  --color-surface-dim: #131313;
+  --color-surface-lowest: #0e0e0e;
+  --color-surface-low: #1b1b1b;
+  --color-surface: #1f1f1f;
+  --color-surface-high: #2a2a2a;
+  --color-surface-highest: #353535;
+  --color-outline: #aa8984;
+  --color-outline-variant: #5a403c;
+}
+
+:root {
+  --background: #0e0e0e;
+  --foreground: #e2e2e2;
+  --card: #1f1f1f;
+  --card-foreground: #e2e2e2;
+  --popover: #1f1f1f;
+  --popover-foreground: #e2e2e2;
+  --primary: #8b0000;
+  --primary-foreground: #e2e2e2;
+  --secondary: #c8c6c5;
+  --secondary-foreground: #1b1c1c;
+  --muted: #2a2a2a;
+  --muted-foreground: #aa8984;
+  --accent: #1f1f1f;
+  --accent-foreground: #e2e2e2;
+  --destructive: #93000a;
+  --border: #5a403c;
+  --input: #353535;
+  --ring: #8b0000;
+  --radius: 0.125rem;
+  --sidebar: #1f1f1f;
+  --sidebar-foreground: #e2e2e2;
+  --sidebar-primary: #8b0000;
+  --sidebar-primary-foreground: #e2e2e2;
+  --sidebar-accent: #2a2a2a;
+  --sidebar-accent-foreground: #e2e2e2;
+  --sidebar-border: #5a403c;
+  --sidebar-ring: #8b0000;
+}
+
+.dark {
+  --background: #0e0e0e;
+  --foreground: #e2e2e2;
+  --card: #1f1f1f;
+  --card-foreground: #e2e2e2;
+  --popover: #1f1f1f;
+  --popover-foreground: #e2e2e2;
+  --primary: #8b0000;
+  --primary-foreground: #e2e2e2;
+  --secondary: #c8c6c5;
+  --secondary-foreground: #1b1c1c;
+  --muted: #2a2a2a;
+  --muted-foreground: #aa8984;
+  --accent: #1f1f1f;
+  --accent-foreground: #e2e2e2;
+  --destructive: #93000a;
+  --border: #5a403c;
+  --input: #353535;
+  --ring: #8b0000;
+  --sidebar: #1f1f1f;
+  --sidebar-foreground: #e2e2e2;
+  --sidebar-primary: #8b0000;
+  --sidebar-primary-foreground: #e2e2e2;
+  --sidebar-accent: #2a2a2a;
+  --sidebar-accent-foreground: #e2e2e2;
+  --sidebar-border: #5a403c;
+  --sidebar-ring: #8b0000;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* Material Symbols config */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Editorial shadow */
+.editorial-shadow {
+  box-shadow: 0 48px 48px -12px rgba(139, 0, 0, 0.05);
+}
+
+/* Glass header */
+.glass-header {
+  background: rgba(14, 14, 14, 0.7);
+  backdrop-filter: blur(12px);
+}
+
+/* Scroll reveal animations */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.scroll-reveal.revealed {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.scroll-reveal.revealed.stagger-1 { animation-delay: 0.1s; }
+.scroll-reveal.revealed.stagger-2 { animation-delay: 0.2s; }
+.scroll-reveal.revealed.stagger-3 { animation-delay: 0.3s; }
+
+/* Hero entrance */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-fade-up {
+  opacity: 0;
+  animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Card hover lift - more refined */
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.4s ease;
+}
+.card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(139, 0, 0, 0.12);
+}
+
+/* Card subtle hover (no lift, just glow) */
+.card-subtle {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-subtle:hover {
+  box-shadow: 0 0 30px rgba(139, 0, 0, 0.08);
+}
+
+/* Button press - more satisfying */
+.btn-press {
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.15s ease,
+              background-color 0.2s ease;
+}
+.btn-press:hover {
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
+}
+.btn-press:active {
+  transform: scale(0.96);
+}
+
+/* Button ghost (outline) */
+.btn-ghost {
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-ghost:hover {
+  background-color: rgba(139, 0, 0, 0.1);
+  border-color: rgba(139, 0, 0, 0.3);
+}
+
+/* Link underline animation */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Image zoom on hover */
+.img-zoom {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.img-zoom:hover {
+  transform: scale(1.05);
+}
+
+/* Image subtle brightness */
+.img-bright {
+  transition: opacity 0.4s ease, filter 0.4s ease;
+}
+.img-bright:hover {
+  opacity: 0.85;
+  filter: brightness(1.1);
+}
+
+/* Fade in up animation for lists */
+@keyframes fadeInStagger {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-stagger > * {
+  opacity: 0;
+  animation: fadeInStagger 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.fade-in-stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.fade-in-stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.fade-in-stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.fade-in-stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.fade-in-stagger > *:nth-child(5) { animation-delay: 0.5s; }
+
+/* Pulse subtle for icons */
+.pulse-subtle {
+  animation: pulseSubtle 2s ease-in-out infinite;
+}
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Shimmer loading effect */
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(139, 0, 0, 0.05) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Selection color */
+::selection {
+  background-color: #8b0000;
+  color: #e2e2e2;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Disable text selection site-wide except inputs */
+* {
+  user-select: none;
+}
+input, textarea {
+  user-select: text;
+}
