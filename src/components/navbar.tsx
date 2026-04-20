@@ -23,7 +23,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-8 py-4 md:py-6 max-w-screen-2xl mx-auto bg-neutral-950/80 backdrop-blur-xl">
+      <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-8 py-4 md:py-6 bg-neutral-950/80 backdrop-blur-xl">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity duration-300">
           <img
