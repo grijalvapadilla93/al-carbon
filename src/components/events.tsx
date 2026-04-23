@@ -36,20 +36,21 @@ export function Events() {
       <div className="max-w-6xl mx-auto px-8">
         <ScrollReveal>
           <h2 className="text-5xl md:text-6xl font-black text-on-surface text-center mb-16 uppercase tracking-tighter">
-            Próximos Eventos
+            <span className="text-outline-variant/50 mr-3 font-mono text-3xl md:text-4xl align-middle">03</span>
+            <span className="align-middle">Próximos Eventos</span>
           </h2>
         </ScrollReveal>
 
         <div className="space-y-4">
           {events.map((event, i) => (
             <ScrollReveal key={i} stagger={i + 1}>
-              <div className="group flex flex-col md:flex-row items-center py-10 md:py-8 border-b border-outline-variant/20 hover:bg-surface-low transition-colors px-6 gap-6">
+              <div className="group flex flex-col md:flex-row items-center py-10 md:py-8 bg-gradient-to-r from-surface-low via-surface to-surface-low border border-outline-variant/25 shadow-xl shadow-black/50 hover:shadow-2xl hover:shadow-black/60 hover:border-primary-container/25 transition-all duration-500 px-6 md:px-10 gap-6 rounded-sm">
                 {/* Date */}
                 <div className="flex-shrink-0 w-full md:w-32 text-center md:text-left">
                   <span className="block text-4xl font-black text-primary-container leading-none">
                     {event.day}
                   </span>
-                  <span className="text-sm uppercase tracking-widest text-on-surface-variant font-bold">
+                  <span className="text-sm uppercase tracking-wider text-on-surface-variant font-bold">
                     {event.month}
                   </span>
                 </div>
@@ -65,25 +66,23 @@ export function Events() {
                 </div>
 
                 {/* Action */}
-                <div className="flex flex-col items-center md:items-end gap-4 min-w-[180px]">
+                <div className="flex flex-col items-center md:items-end gap-3 min-w-[180px]">
                   {event.soldOut ? (
-                    <>
-                      <span className="text-sm font-black uppercase tracking-[0.2em] text-outline px-4 py-1 border border-outline/30 rounded-full">
+                    <div className="flex flex-col items-center md:items-end gap-2">
+                      <span className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wider text-outline px-4 py-2 bg-surface-high rounded-sm">
+                        <span className="w-2 h-2 rounded-full bg-outline" />
                         AGOTADO
                       </span>
-                      <button
-                        className="bg-surface-highest text-on-surface-variant/50 px-4 md:px-8 py-3 font-black uppercase tracking-widest text-sm rounded-sm cursor-not-allowed w-full"
-                        disabled
-                      >
-                        Reservar
-                      </button>
-                    </>
+                      <span className="text-xs text-secondary-dim">
+                        Lista de espera disponible
+                      </span>
+                    </div>
                   ) : (
                     <>
-                      <span className="text-sm font-black uppercase tracking-[0.2em] text-on-surface">
+                      <span className="text-sm font-black uppercase tracking-wider text-on-surface">
                         {event.time}
                       </span>
-                      <button className="bg-primary-container text-on-surface px-4 md:px-8 py-3 font-black uppercase tracking-widest text-sm rounded-sm hover:brightness-125 transition-all w-full editorial-shadow btn-press">
+                      <button className="bg-primary-container text-on-surface px-4 md:px-8 py-3 font-black uppercase tracking-wider text-sm rounded-sm hover:shadow-[0_0_25px_rgba(139,0,0,0.4)] transition-all w-full editorial-shadow btn-press">
                         Reservar
                       </button>
                     </>

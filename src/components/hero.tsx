@@ -21,11 +21,7 @@ interface Ember {
 export function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Always scroll to top on mount
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+  // Ember canvas animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -33,7 +29,6 @@ export function Hero() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Narrow the type for closures
     const c = canvas;
     const context = ctx;
 
@@ -43,6 +38,9 @@ export function Hero() {
     }
     resize();
     window.addEventListener("resize", resize);
+
+    const isMobile = window.innerWidth < 768;
+    const emberCount = isMobile ? 60 : 120;
 
     class EmberClass implements Ember {
       x: number;
@@ -104,7 +102,7 @@ export function Hero() {
       }
     }
 
-    const embers: Ember[] = Array.from({ length: 120 }, () => new EmberClass(true));
+    const embers: Ember[] = Array.from({ length: emberCount }, () => new EmberClass(true));
 
     let animationId: number;
     function animate() {
@@ -139,50 +137,80 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-surface-dim via-transparent to-surface-dim/60" />
       </div>
 
+      {/* Fallback gradient behind canvas */}
+      <div className="absolute inset-0 bg-gradient-to-t from-orange-900/20 via-transparent to-orange-950/10 z-[1] pointer-events-none" />
+
+      {/* Vignette — empuja atención al centro */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.5) 100%)",
+        }}
+      />
+
       {/* Ember canvas overlay */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none z-[1]"
+        className="absolute inset-0 w-full h-full pointer-events-none z-[2]"
       />
 
-      {/* Content */}
+      {/* Content con animaciones CSS puras */}
       <div className="relative z-10 text-center px-4 max-w-5xl">
-        <span className="text-xs uppercase tracking-[0.3em] text-primary-light mb-6 block font-medium hero-fade-up">
+        {/* Location tag — fade-up 300ms delay */}
+        <span
+          className="text-xs uppercase tracking-[0.3em] text-primary-light mb-6 block font-medium hero-content"
+          style={{ opacity: 0, animation: "heroFadeUp 0.7s 0.3s forwards" }}
+        >
           Jalapa, Guatemala
         </span>
+
+        {/* Subtitle — fade-up 600ms delay */}
         <p
-          className="text-xl md:text-2xl text-secondary-dim mb-2 font-light tracking-widest uppercase hero-fade-up"
-          style={{ animationDelay: "0.1s" }}
+          className="text-xl md:text-2xl text-secondary-dim mb-2 font-light tracking-widest uppercase hero-content"
+          style={{ opacity: 0, animation: "heroFadeUp 0.7s 0.6s forwards" }}
         >
           Sabor que Enciende los Sentidos
         </p>
-        <h1
-          className="text-6xl md:text-8xl font-black tracking-tighter text-on-surface mb-8 uppercase leading-[0.9] hero-fade-up"
-          style={{ animationDelay: "0.2s" }}
-        >
+
+        {/* Title — simple fade-up + stagger letters CSS */}
+        <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-on-surface mb-8 uppercase leading-[0.9]">
           AL{" "}
-          <span className="text-primary-container">CARBÓN</span>
+          <span className="inline-flex">
+            <span className="hero-letter-1 inline-block">C</span>
+            <span className="hero-letter-2 inline-block">A</span>
+            <span className="hero-letter-3 inline-block">R</span>
+            <span className="hero-letter-4 inline-block">B</span>
+            <span className="hero-letter-5 inline-block">Ó</span>
+            <span className="hero-letter-6 inline-block">N</span>
+          </span>
         </h1>
+
+        {/* Description — fade-up 900ms delay */}
         <p
-          className="text-lg md:text-xl text-secondary-dim/80 max-w-2xl mx-auto mb-10 font-light leading-relaxed hero-fade-up"
-          style={{ animationDelay: "0.3s" }}
+          className="text-lg md:text-xl text-secondary-dim/80 max-w-2xl mx-auto mb-10 font-light leading-relaxed hero-content"
+          style={{ opacity: 0, animation: "heroFadeUp 0.7s 0.9s forwards" }}
         >
           La maestría del fuego y la selección de cortes más exclusiva de la
           región. Una experiencia nocturna de prestigio.
         </p>
+
+        {/* CTA buttons — slide-up 20px, 1200ms delay */}
         <div
-          className="flex flex-col md:flex-row items-center justify-center gap-6 hero-fade-up"
-          style={{ animationDelay: "0.4s" }}
+          className="flex flex-col md:flex-row items-center justify-center gap-6 hero-content"
+          style={{
+            opacity: 0,
+            animation: "slideUp 0.7s 1.2s forwards",
+          }}
         >
           <a
             href="/menu"
-            className="bg-gradient-to-r from-primary-container to-primary-hover text-on-surface px-4 md:px-10 py-4 font-bold rounded-sm text-lg tracking-widest uppercase hover:brightness-125 transition-all btn-press inline-block"
+            className="bg-gradient-to-r from-primary-container to-primary-hover text-on-surface px-4 md:px-10 py-4 font-bold rounded-sm text-lg tracking-[0.15em] uppercase hover:shadow-[0_0_30px_rgba(139,0,0,0.35)] transition-all btn-press inline-block"
           >
             Explorar Menú
           </a>
           <a
             href="/menu#bodega"
-            className="border border-outline-variant/30 text-on-surface px-4 md:px-10 py-4 font-bold rounded-sm text-lg tracking-widest uppercase hover:bg-surface-high transition-all btn-ghost inline-block"
+            className="border border-outline-variant/30 text-on-surface px-4 md:px-10 py-4 font-bold rounded-sm text-lg tracking-[0.15em] uppercase hover:bg-surface-high transition-all btn-ghost inline-block"
           >
             Nuestra Cava
           </a>

@@ -33,10 +33,12 @@ export function MenuHero() {
         </p>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-[10px] tracking-widest text-outline">DESLIZA</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-primary-container to-transparent animate-pulse" />
+      {/* Scroll indicator — bounce animation */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+        <span className="text-[10px] tracking-[0.2em] text-outline uppercase">Desliza</span>
+        <div className="relative w-[1px] h-12 bg-gradient-to-b from-primary-container to-transparent">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-primary-container rounded-full animate-bounce" />
+        </div>
       </div>
     </header>
   );

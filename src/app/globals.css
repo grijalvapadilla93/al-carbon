@@ -161,17 +161,15 @@
 .scroll-reveal {
   opacity: 0;
   transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .scroll-reveal.revealed {
-  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 1;
+  transform: translateY(0);
 }
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.scroll-reveal.revealed.stagger-1 { animation-delay: 0.1s; }
-.scroll-reveal.revealed.stagger-2 { animation-delay: 0.2s; }
-.scroll-reveal.revealed.stagger-3 { animation-delay: 0.3s; }
+.scroll-reveal.revealed.stagger-1 { transition-delay: 0.1s; }
+.scroll-reveal.revealed.stagger-2 { transition-delay: 0.2s; }
+.scroll-reveal.revealed.stagger-3 { transition-delay: 0.3s; }
 
 /* Hero entrance */
 @keyframes heroFadeUp {
@@ -181,6 +179,25 @@
 .hero-fade-up {
   opacity: 0;
   animation: heroFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Hero letters — fire/ember reveal */
+@keyframes heroLetterIn {
+  0% { opacity: 0; color: #C4622D; }
+  35% { opacity: 1; color: #FFD700; }
+  70% { color: #FFD700; }
+  100% { opacity: 1; color: #ffffff; }
+}
+.hero-letter-1 { opacity: 0; animation: heroLetterIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.2s forwards; }
+.hero-letter-2 { opacity: 0; animation: heroLetterIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.3s forwards; }
+.hero-letter-3 { opacity: 0; animation: heroLetterIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.4s forwards; }
+.hero-letter-4 { opacity: 0; animation: heroLetterIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.5s forwards; }
+.hero-letter-5 { opacity: 0; animation: heroLetterIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.6s forwards; }
+.hero-letter-6 { opacity: 0; animation: heroLetterIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.7s forwards; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Card hover lift - more refined */
@@ -303,6 +320,7 @@
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* Disable text selection site-wide except inputs */
@@ -312,3 +330,266 @@ html {
 input, textarea {
   user-select: text;
 }
+
+/* ==========================================
+   STATS BAR — Prestige Horizontal Strip
+   ========================================== */
+.stats-bar {
+  background: linear-gradient(90deg, #1a1a1a 0%, #0e0e0e 50%, #1a1a1a 100%);
+  border-top: 1px solid rgba(196, 98, 45, 0.2);
+  border-bottom: 1px solid rgba(196, 98, 45, 0.2);
+}
+.stats-bar .stat-item .stat-value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.stat-count {
+  animation: countUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+/* ==========================================
+   GALLERY MASONRY — Grid Responsive
+   ========================================== */
+.gallery-masonry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 250px;
+  gap: 1rem;
+}
+@media (max-width: 768px) {
+  .gallery-masonry {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 200px;
+  }
+}
+@media (max-width: 480px) {
+  .gallery-masonry {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 280px;
+  }
+}
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.25rem;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+}
+.gallery-icon {
+  color: white;
+  transform: scale(0.8);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gallery-item:hover .gallery-icon {
+  transform: scale(1);
+}
+
+/* ==========================================
+   TESTIMONIALS — Glass Panel Cards
+   ========================================== */
+.testimonials-section {
+  background: linear-gradient(180deg, transparent 0%, rgba(196, 98, 45, 0.03) 100%);
+}
+.testimonial-card {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(196, 98, 45, 0.25);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(139, 0, 0, 0.12);
+  border-color: rgba(196, 98, 45, 0.5);
+}
+.testimonial-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(196, 98, 45, 0.5);
+}
+.testimonial-name {
+  color: var(--color-on-surface);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.testimonial-stars {
+  color: #C4622D;
+  letter-spacing: 0.1em;
+}
+.testimonial-text {
+  color: var(--color-secondary-dim);
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* ==========================================
+   SCROLL REVEAL — Stagger delays
+   ========================================== */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+
+/* ==========================================
+   COVERFLOW CAROUSEL — 3D Carousel
+   ========================================== */
+.coverflow-wrapper {
+  position: relative;
+  z-index: 1; /* Ensure carousel stays above following content */
+  /* Give the carousel a proper height in the document flow */
+  min-height: 520px;
+  margin-bottom: 2rem;
+}
+
+.coverflow-card {
+  will-change: transform, opacity;
+  cursor: default;
+  position: absolute;
+  width: 320px;
+  transform-style: preserve-3d;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  left: 50%;
+  transform-origin: center center;
+}
+
+/* Active (center) */
+.coverflow-card.active {
+  transform: translateX(-50%) rotateY(0deg) scale(1) translateZ(0px);
+  opacity: 1;
+  z-index: 10;
+  cursor: default;
+}
+
+/* Adjacent left */
+.coverflow-card.adjacent-left {
+  transform: translateX(-50%) rotateY(45deg) scale(0.85) translateZ(-150px) translateX(-60%);
+  opacity: 0.65;
+  z-index: 5;
+}
+.coverflow-card.adjacent-left:hover {
+  transform: translateX(-50%) rotateY(45deg) scale(0.9) translateZ(-150px) translateX(-60%);
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+/* Adjacent right */
+.coverflow-card.adjacent-right {
+  transform: translateX(-50%) rotateY(-45deg) scale(0.85) translateZ(-150px) translateX(60%);
+  opacity: 0.65;
+  z-index: 5;
+}
+.coverflow-card.adjacent-right:hover {
+  transform: translateX(-50%) rotateY(-45deg) scale(0.9) translateZ(-150px) translateX(60%);
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+/* Far left */
+.coverflow-card.far-left {
+  transform: translateX(-50%) rotateY(65deg) scale(0.7) translateZ(-300px) translateX(-90%);
+  opacity: 0.35;
+  z-index: 1;
+}
+.coverflow-card.far-left:hover {
+  transform: translateX(-50%) rotateY(65deg) scale(0.75) translateZ(-300px) translateX(-90%);
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+/* Far right */
+.coverflow-card.far-right {
+  transform: translateX(-50%) rotateY(-65deg) scale(0.7) translateZ(-300px) translateX(90%);
+  opacity: 0.35;
+  z-index: 1;
+}
+.coverflow-card.far-right:hover {
+  transform: translateX(-50%) rotateY(-65deg) scale(0.75) translateZ(-300px) translateX(90%);
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+/* Ken Burns effect on active card image */
+.animate-subtle-zoom {
+  animation: kenBurns 4s ease-in-out infinite alternate;
+}
+@keyframes kenBurns {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+/* Hide scrollbar on carousel container */
+.coverflow-carousel-track {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.coverflow-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================
+   SECTION DIVIDER — Gradient line separator
+   ========================================== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(139, 0, 0, 0.35) 50%, transparent 100%);
+  position: relative;
+}
+.section-divider::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, rgba(196, 98, 45, 0.6) 50%, transparent 100%);
+  filter: blur(2px);
+  border-radius: 2px;
+}
+
+/* ==========================================
+   CINEMATIC GRAIN — Film noise overlay
+   ========================================== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  max-width: 100vw;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+

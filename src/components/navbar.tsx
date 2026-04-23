@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icon";
 
 export function Navbar() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const links = [
@@ -13,12 +15,38 @@ export function Navbar() {
     { name: "Contacto", href: "/#contact" },
   ];
 
+  // Cerrar menú móvil al volver con back/forward (bfcache)
+  useEffect(() => {
+    const onPageshow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("pageshow", onPageshow);
+    return () => window.removeEventListener("pageshow", onPageshow);
+  }, []);
+
   const handleNav = (e: React.MouseEvent, href: string) => {
     setOpen(false);
-    if (href.startsWith("/#")) return; // hash links
+    if (href.startsWith("/#")) {
+      const hash = href.slice(1); // "#contact"
+      if (typeof window !== "undefined") {
+        if (window.location.pathname !== "/") {
+          // En otra página: navegación completa
+          window.location.href = href;
+        } else {
+          // En la home: scroll suave, actualizar URL sin recargar
+          e.preventDefault();
+          window.history.pushState(null, "", hash);
+          const el = document.querySelector(hash);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+      return;
+    }
     if (href.startsWith("#")) return;
     e.preventDefault();
-    window.location.assign(href);
+    router.push(href);
   };
 
   return (
